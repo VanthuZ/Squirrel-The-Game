@@ -15,7 +15,8 @@ def run_game():
 
     while True:
 
-        gf.check_event()
+        gf.check_event(squirrel)
+        squirrel.update()
         gf.update_screen(game_settings, screen, squirrel)
 
 
