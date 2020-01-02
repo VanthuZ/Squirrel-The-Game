@@ -1,21 +1,22 @@
-import sys
 import pygame
+
+import game_functions as gf
+from settings import Settings
+from squirrel import Squirrel
 
 
 def run_game():
     pygame.init()
-    screen = pygame.display.set_mode((1920, 1020))
+
     pygame.display.set_caption("Squirrel the Game")
-    bg_color = (50, 90, 0)
+    game_settings = Settings()
+    screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
+    squirrel = Squirrel(screen)
 
     while True:
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        screen.fill(bg_color)
-        pygame.display.flip()
+        gf.check_event()
+        gf.update_screen(game_settings, screen, squirrel)
 
 
 run_game()
