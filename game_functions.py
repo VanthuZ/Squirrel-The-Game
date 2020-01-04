@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from cat import Cat
 from Bullet import Bullet
 
 
@@ -36,13 +37,14 @@ def fire_bullets(game_settings, screen, squirrel, bullets):
         bullets.add(new_bullet)
 
 
-def update_screen(game_settings, screen, squirrel, bullets):
+def update_screen(game_settings, screen, squirrel, cat, bullets):
     screen.fill(game_settings.bg_color)
 
     for bullet in bullets.sprites():
         bullet.blitme()
 
     squirrel.blitme()
+    cat.blitme()
     pygame.display.flip()
 
 
