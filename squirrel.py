@@ -23,3 +23,6 @@ class Squirrel:
             self.rect.centerx += 1
         if self.moving_left and self.rect.left > 0:
             self.rect.centerx -= 1
+
+    def center_squirrel(self):
+        self.rect.centerx = self.screen_rect.centerx

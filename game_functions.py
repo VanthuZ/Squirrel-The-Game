@@ -1,7 +1,9 @@
 import sys
+from time import sleep
+
 import pygame
 
-from Bullet import Bullet
+from bullet import Bullet
 from cat import Cat
 
 
@@ -96,9 +98,14 @@ def create_cat(game_settings, screen, cats, cat_number, row_number):
     cats.add(cat)
 
 
-def update_aliens(game_settings, cats):
+def update_cats(game_settings, stats, screen, squirrel, cats, bullets):
     check_fleet_edges(game_settings, cats)
     cats.update()
+
+    if pygame.sprite.spritecollideany(squirrel, cats):
+        squirrel_hit(game_settings, stats, screen, squirrel, cats, bullets)
+
+    check_cats_bottom(game_settings, stats, screen, squirrel, cats, bullets)
 
 
 def change_fleet_direction(game_settings, cats):
@@ -111,4 +118,25 @@ def check_fleet_edges(game_settings, cats):
     for cat in cats.sprites():
         if cat.check_edges():
             change_fleet_direction(game_settings, cats)
+            break
+
+
+def squirrel_hit(game_settings, stats, screen, squirrel, cats, bullets):
+    if stats.lives_left > 0:
+
+        stats.lives_left -= 1
+        cats.empty()
+        bullets.empty()
+        create_fleet(game_settings, screen, squirrel, cats)
+        squirrel.center_squirrel()
+        sleep(0.5)
+    else:
+        stats.game_active = False
+
+
+def check_cats_bottom(game_settings, stats, screen, squirrel, cats, bullets):
+    screen_rect = screen.get_rect()
+    for cat in cats.sprites():
+        if cat.rect.bottom >= screen_rect.bottom:
+            squirrel_hit(game_settings, stats, screen, squirrel, cats, bullets)
             break
