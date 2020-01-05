@@ -48,12 +48,21 @@ def update_screen(game_settings, screen, squirrel, cats, bullets):
     pygame.display.flip()
 
 
-def update_bullets(bullets):
+def update_bullets(game_settings, screen, squirrel, cats, bullets):
     bullets.update()
 
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    check_bullet_cat_collisions(game_settings, screen, squirrel, cats, bullets)
+
+
+def check_bullet_cat_collisions(game_settings, screen, squirrel, cats, bullets):
+    collisions = pygame.sprite.groupcollide(bullets, cats, True, True)
+    if len(cats) == 0:
+        bullets.empty()
+        create_fleet(game_settings, screen, squirrel, cats)
 
 
 def create_fleet(game_settings, screen, squirrel, cats):

@@ -21,7 +21,7 @@ def run_game():
     while True:
         gf.check_event(game_settings, screen, squirrel, bullets)
         squirrel.update()
-        gf.update_bullets(bullets)
+        gf.update_bullets(game_settings, screen, squirrel, cats, bullets)
         gf.update_aliens(game_settings, cats)
         gf.update_screen(game_settings, screen, squirrel, cats, bullets)
 
