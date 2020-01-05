@@ -13,14 +13,16 @@ def run_game():
     game_settings = Settings()
     screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
     squirrel = Squirrel(screen)
-    cat = Cat(game_settings, screen)
+    cats = Group()
     bullets = Group()
+
+    gf.create_fleet(game_settings, screen, squirrel, cats)
 
     while True:
         gf.check_event(game_settings, screen, squirrel, bullets)
         squirrel.update()
         gf.update_bullets(bullets)
-        gf.update_screen(game_settings, screen, squirrel, cat, bullets)
+        gf.update_screen(game_settings, screen, squirrel, cats, bullets)
 
 
 run_game()

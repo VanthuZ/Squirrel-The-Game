@@ -1,8 +1,8 @@
 import sys
 import pygame
 
-from cat import Cat
 from Bullet import Bullet
+from cat import Cat
 
 
 def check_event(game_settings, screen, squirrel, bullets):
@@ -37,14 +37,14 @@ def fire_bullets(game_settings, screen, squirrel, bullets):
         bullets.add(new_bullet)
 
 
-def update_screen(game_settings, screen, squirrel, cat, bullets):
+def update_screen(game_settings, screen, squirrel, cats, bullets):
     screen.fill(game_settings.bg_color)
 
     for bullet in bullets.sprites():
         bullet.blitme()
 
     squirrel.blitme()
-    cat.blitme()
+    cats.draw(screen)
     pygame.display.flip()
 
 
@@ -54,4 +54,36 @@ def update_bullets(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+
+def create_fleet(game_settings, screen, squirrel, cats):
+    cat = Cat(game_settings, screen)
+    number_cats_x = get_number_cat_x(game_settings, cat.rect.width)
+    number_rows = get_number_rows(game_settings, squirrel.rect.height, cat.rect.height)
+
+    for row_number in range(number_rows):
+        for cat_number in range(number_cats_x):
+            create_cat(game_settings, screen, cats, cat_number, row_number)
+
+
+def get_number_cat_x(game_settings, cat_width):
+    available_space_x = game_settings.screen_width - 2 * cat_width
+    number_cats_x = int(available_space_x / (2 * cat_width))
+    return number_cats_x
+
+
+def get_number_rows(game_settings, squirrel_height, cat_height):
+    available_space_y = (game_settings.screen_height - (3 * cat_height) - squirrel_height)
+    number_rows = int(available_space_y / (2 * cat_height))
+    return number_rows
+
+
+def create_cat(game_settings, screen, cats, cat_number, row_number):
+    cat = Cat(game_settings, screen)
+    cat_width = cat.rect.width
+    cat.x = cat_width + 2 * cat_width * cat_number
+    cat.rect.x = cat.x
+    cat.rect.y = cat.rect.height + 2 * cat.rect.height * row_number
+    cats.add(cat)
+
 
