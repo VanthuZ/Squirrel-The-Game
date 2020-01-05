@@ -87,3 +87,19 @@ def create_cat(game_settings, screen, cats, cat_number, row_number):
     cats.add(cat)
 
 
+def update_aliens(game_settings, cats):
+    check_fleet_edges(game_settings, cats)
+    cats.update()
+
+
+def change_fleet_direction(game_settings, cats):
+    for cat in cats.sprites():
+        cat.rect.y += game_settings.fleet_drop_speed
+    game_settings.fleet_direction *= -1
+
+
+def check_fleet_edges(game_settings, cats):
+    for cat in cats.sprites():
+        if cat.check_edges():
+            change_fleet_direction(game_settings, cats)
+            break
