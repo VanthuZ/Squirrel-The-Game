@@ -3,8 +3,8 @@ from time import sleep
 
 import pygame
 
-from bullet import Bullet
-from cat import Cat
+from game_objects.bullet import Bullet
+from game_objects.cat import Cat
 
 
 def check_event(game_settings, screen, squirrel, bullets):

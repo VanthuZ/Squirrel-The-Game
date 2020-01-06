@@ -1,9 +1,9 @@
 import pygame
 from pygame.sprite import Group
-import game_functions as gf
-from game_stats import GameStats
-from settings import Settings
-from squirrel import Squirrel
+from service import game_functions as gf
+from settings.game_stats import GameStats
+from settings.settings import Settings
+from game_objects.squirrel import Squirrel
 
 
 def run_game():
