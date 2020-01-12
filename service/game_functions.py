@@ -53,6 +53,7 @@ def update_screen(game_settings, game_stats, screen, squirrel, cats, bullets, pl
     screen.fill(game_settings.bg_color)
     squirrel.blitme()
     cats.draw(screen)
+    game_stats.show_level()
 
     for bullet in bullets.sprites():
         bullet.blitme()
@@ -63,21 +64,23 @@ def update_screen(game_settings, game_stats, screen, squirrel, cats, bullets, pl
     pygame.display.flip()
 
 
-def update_bullets(game_settings, screen, squirrel, cats, bullets):
+def update_bullets(game_settings, game_stats, screen, squirrel, cats, bullets):
     bullets.update()
 
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
-    check_bullet_cat_collisions(game_settings, screen, squirrel, cats, bullets)
+    check_bullet_cat_collisions(game_settings, game_stats, screen, squirrel, cats, bullets)
 
 
-def check_bullet_cat_collisions(game_settings, screen, squirrel, cats, bullets):
+def check_bullet_cat_collisions(game_settings, game_stats, screen, squirrel, cats, bullets):
     collisions = pygame.sprite.groupcollide(bullets, cats, True, True)
     if len(cats) == 0:
         bullets.empty()
         create_fleet(game_settings, screen, squirrel, cats)
+        game_stats.level_number += 1
+        game_stats.prep_level()
 
 
 def create_fleet(game_settings, screen, squirrel, cats):
@@ -123,8 +126,8 @@ def update_cats(game_settings, stats, screen, squirrel, cats, bullets):
 
 def change_fleet_direction(game_settings, cats):
     for cat in cats.sprites():
-        cat.rect.y += game_settings.fleet_drop_speed
-    game_settings.fleet_direction *= -1
+        cat.rect.y += game_settings.cats_drop_speed
+    game_settings.cats_direction *= -1
 
 
 def check_fleet_edges(game_settings, cats):

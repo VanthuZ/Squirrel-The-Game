@@ -18,7 +18,7 @@ def run_game():
     squirrel = Squirrel(screen)
     cats = Group()
     bullets = Group()
-    game_stats = GameStats(game_settings)
+    game_stats = GameStats(game_settings, screen)
     gf.create_fleet(game_settings, screen, squirrel, cats)
 
     while True:
@@ -26,7 +26,7 @@ def run_game():
 
         if game_stats.game_active:
             squirrel.update()
-            gf.update_bullets(game_settings, screen, squirrel, cats, bullets)
+            gf.update_bullets(game_settings, game_stats, screen, squirrel, cats, bullets)
             gf.update_cats(game_settings, game_stats, screen, squirrel, cats, bullets)
 
         gf.update_screen(game_settings, game_stats, screen, squirrel, cats, bullets, play_button)
