@@ -20,7 +20,7 @@ class Cat(Sprite):
         self.screen.blit(self.image, self.rect)
 
     def update(self):
-        self.x += (self.game_settings.cat_speed_factor * self.game_settings.fleet_direction)
+        self.x += (self.game_settings.cats_speed_factor * self.game_settings.cats_direction)
         self.rect.x = self.x
 
     def check_edges(self):

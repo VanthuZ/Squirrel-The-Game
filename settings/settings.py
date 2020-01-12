@@ -9,8 +9,8 @@ class Settings:
         self.bullet_speed_factor = 1
         self.bullets_allowed = 3
         """enemies-cats"""
-        self.cat_speed_factor = 1.5
-        self.fleet_drop_speed = 10
-        self.fleet_direction = 1
+        self.cats_speed_factor = 1
+        self.cats_drop_speed = 10
+        self.cats_direction = 1
         """hero-squirrel"""
         self.lives_limit = 3
