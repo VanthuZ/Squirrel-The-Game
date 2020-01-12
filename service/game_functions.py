@@ -7,7 +7,7 @@ from game_objects.bullet import Bullet
 from game_objects.cat import Cat
 
 
-def check_event(game_settings, screen, squirrel, bullets):
+def check_event(game_settings, game_stats, play_button, screen, squirrel, bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -15,6 +15,15 @@ def check_event(game_settings, screen, squirrel, bullets):
             check_keydown_events(event, game_settings, screen, squirrel, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, squirrel)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(game_stats, play_button, mouse_x, mouse_y)
+
+
+def check_play_button(game_stats, play_button, mouse_x, mouse_y):
+
+       if play_button.rect.collidepoint(mouse_x, mouse_y):
+            game_stats.game_active = True
 
 
 def check_keydown_events(event, game_settings, screen, squirrel, bullets):
@@ -39,14 +48,18 @@ def fire_bullets(game_settings, screen, squirrel, bullets):
         bullets.add(new_bullet)
 
 
-def update_screen(game_settings, screen, squirrel, cats, bullets):
+def update_screen(game_settings, game_stats, screen, squirrel, cats, bullets, play_button):
+
     screen.fill(game_settings.bg_color)
+    squirrel.blitme()
+    cats.draw(screen)
 
     for bullet in bullets.sprites():
         bullet.blitme()
 
-    squirrel.blitme()
-    cats.draw(screen)
+    if not game_stats.game_active:
+        play_button.draw_button()
+
     pygame.display.flip()
 
 
