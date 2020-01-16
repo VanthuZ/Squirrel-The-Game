@@ -15,7 +15,7 @@ def run_game():
     game_settings = Settings()
     screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
     play_button = Button(game_settings, screen, "Gra")
-    squirrel = Squirrel(screen)
+    squirrel = Squirrel(screen, game_settings)
     cats = Group()
     bullets = Group()
     game_stats = GameStats(game_settings, screen)

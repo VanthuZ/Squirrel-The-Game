@@ -81,6 +81,7 @@ def check_bullet_cat_collisions(game_settings, game_stats, screen, squirrel, cat
         create_fleet(game_settings, screen, squirrel, cats)
         game_stats.level_number += 1
         game_stats.prep_level()
+        game_stats.level_up(game_settings)
 
 
 def create_fleet(game_settings, screen, squirrel, cats):

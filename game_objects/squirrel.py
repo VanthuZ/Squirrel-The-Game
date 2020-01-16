@@ -3,15 +3,17 @@ import pygame
 
 class Squirrel:
 
-    def __init__(self, screen):
+    def __init__(self, screen, game_settings):
         self.screen = screen
+        self.game_settings = game_settings
         self.image = pygame.image.load('images/squirrel2.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
+
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
-
+        self.center = float(self.rect.centerx)
         self.moving_right = False
         self.moving_left = False
 
@@ -20,9 +22,11 @@ class Squirrel:
 
     def update(self):
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.rect.centerx += 1
+            self.center += self.game_settings.squirrel_speed
         if self.moving_left and self.rect.left > 0:
-            self.rect.centerx -= 1
+            self.center -= self.game_settings.squirrel_speed
+
+        self.rect.centerx = self.center
 
     def center_squirrel(self):
         self.rect.centerx = self.screen_rect.centerx

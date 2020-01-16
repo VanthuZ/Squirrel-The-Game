@@ -14,6 +14,7 @@ class GameStats():
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 100)
         self.level_number = 1
+        self.levelup_scale_speed = 1.5
         self.prep_level()
 
 
@@ -28,6 +29,12 @@ class GameStats():
 
     def show_level(self):
         self.screen.blit(self.level, self.level_rect)
+
+    def level_up(self, settings):
+        settings.cats_speed_factor *= self.levelup_scale_speed
+        settings.squirrel_speed *= self.levelup_scale_speed
+
+
 
 
 
